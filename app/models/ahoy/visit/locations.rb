@@ -32,7 +32,7 @@ module Ahoy::Visit::Locations
             items = paged_names.map do |code|
               code_str = code.to_s
               name = if code_str.present? && code_str != "(unknown)"
-                c = ISO3166::Country.new(code_str.upcase)
+                c = ::ISO3166::Country.new(code_str.upcase)
                 c ? short_country_name(c) : code_str
               else
                 "(unknown)"
@@ -56,7 +56,7 @@ module Ahoy::Visit::Locations
               v = counts[code]
               code_str = code.to_s
               name = if code_str.present? && code_str != "(unknown)"
-                c = ISO3166::Country.new(code_str.upcase)
+                c = ::ISO3166::Country.new(code_str.upcase)
                 c ? short_country_name(c) : code_str
               else
                 "(unknown)"
@@ -70,7 +70,7 @@ module Ahoy::Visit::Locations
           items = counts.map do |code, v|
             code_str = code.to_s
             if code_str.present?
-              c = ISO3166::Country.new(code_str.upcase)
+              c = ::ISO3166::Country.new(code_str.upcase)
               if c
                 { name: short_country_name(c), code: c.alpha2, visitors: v }
               else
@@ -211,7 +211,7 @@ module Ahoy::Visit::Locations
         .filter_map do |(code, visitors)|
           next if code.blank?
           normalized = code.to_s.upcase
-          country = ISO3166::Country.new(normalized)
+          country = ::ISO3166::Country.new(normalized)
           next unless country
           { alpha3: country.alpha3, alpha2: country.alpha2, numeric: country.number, code: normalized, name: short_country_name(country), visitors: visitors }
         end
@@ -251,12 +251,12 @@ module Ahoy::Visit::Locations
     end
 
     def alpha3_for(code)
-      country = ISO3166::Country.new(code)
+      country = ::ISO3166::Country.new(code)
       country&.alpha3 || code
     end
 
     def country_name_for(code)
-      country = ISO3166::Country.new(code)
+      country = ::ISO3166::Country.new(code)
       country ? short_country_name(country) : code
     end
 
