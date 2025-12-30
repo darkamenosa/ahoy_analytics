@@ -2,6 +2,8 @@
 
 > **Early Stage Project**
 >
+> Better to make it exist first, then improve later.
+>
 > This project is in active development with many assumptions baked in. Expect breaking changes. Best suited for small greenfield projects.
 >
 > **Current assumptions:**
@@ -125,8 +127,19 @@ npm run build
 ```
 
 ## GeoIP (optional)
-To enable GeoLite2 city lookups, place the MaxMind database at
-`db/geo/GeoLite2-City.mmdb` or set `MAXMIND_DB_PATH` to its location.
+To enable GeoLite2 city lookups:
+
+1. Create a free MaxMind account at https://www.maxmind.com/en/geolite2/signup
+2. Go to "Download Files" and download **GeoLite2 City** (the `.mmdb` format)
+3. Place the file at `db/geo/GeoLite2-City.mmdb` or set `MAXMIND_DB_PATH` to its location
+
+```bash
+mkdir -p db/geo
+# Move your downloaded file
+mv ~/Downloads/GeoLite2-City.mmdb db/geo/
+```
+
+The database is updated weekly by MaxMind. Consider setting up a cron job or using their `geoipupdate` tool to keep it current.
 
 ## Development
 To use the dummy app with the Vite dev server:
