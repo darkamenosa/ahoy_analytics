@@ -13,17 +13,19 @@ Gem::Specification.new do |spec|
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = spec.homepage
 
+  spec.required_ruby_version = ">= 3.2"
+
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   end
 
-  spec.add_dependency "rails", ">= 8.1"
-  spec.add_dependency "ahoy_matey"
-  spec.add_dependency "inertia_rails"
-  spec.add_dependency "device_detector"
-  spec.add_dependency "maxminddb"
+  spec.add_dependency "rails", "~> 8.1"
+  spec.add_dependency "ahoy_matey", "~> 5.4"
+  spec.add_dependency "inertia_rails", "~> 3.15"
+  spec.add_dependency "device_detector", "~> 1.1"
+  spec.add_dependency "maxminddb", "~> 0.1"
   spec.add_dependency "countries", "~> 8.0"
-  spec.add_dependency "csv"
+  spec.add_dependency "csv", "~> 3.3"
 
-  spec.add_development_dependency "vite_rails"
+  spec.add_development_dependency "vite_rails", "~> 3.0"
 end
