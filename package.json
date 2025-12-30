@@ -60,7 +60,7 @@
     "world-atlas": "^2.0.2"
   },
   "scripts": {
-    "build": "node scripts/clean-build.mjs && vite build",
+    "build": "node scripts/clean-build.mjs clean && vite build && node scripts/clean-build.mjs finalize",
     "check": "tsc -p tsconfig.app.json && tsc -p tsconfig.node.json",
     "dev": "vite",
     "preview": "vite preview"

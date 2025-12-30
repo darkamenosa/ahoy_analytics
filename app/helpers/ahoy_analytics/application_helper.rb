@@ -46,7 +46,7 @@ module AhoyAnalytics
 
       def ahoy_analytics_manifest
         @ahoy_analytics_manifest ||= AhoyAnalytics::AssetManifest.new(
-          path: AhoyAnalytics::Engine.root.join("app/assets/ahoy_analytics/build/.vite/manifest.json")
+          path: AhoyAnalytics::Engine.root.join("app/assets/ahoy_analytics/build/vite/manifest.json")
         )
       end
 
