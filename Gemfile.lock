@@ -4,6 +4,7 @@ PATH
     ahoy_analytics (0.1.0)
       ahoy_matey
       countries (~> 8.0)
+      csv
       device_detector
       inertia_rails
       maxminddb
@@ -99,6 +100,7 @@ GEM
     countries (8.0.4)
       unaccent (~> 0.3)
     crass (1.0.6)
+    csv (3.3.5)
     date (3.5.1)
     device_detector (1.1.3)
     drb (2.2.3)

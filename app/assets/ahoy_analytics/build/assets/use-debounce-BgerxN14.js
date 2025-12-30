@@ -1,1 +1,0 @@
-import{r}from"./analytics-ui-DTZ4cVL7.js";const n=300;function s(t,u=n){const e=r.useRef(null);return r.useEffect(()=>()=>{e.current&&clearTimeout(e.current)},[]),r.useCallback(((...c)=>{e.current&&clearTimeout(e.current),e.current=setTimeout(()=>{t(...c)},u)}),[t,u])}export{s as u};

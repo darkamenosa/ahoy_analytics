@@ -1,0 +1,2 @@
+# Mark built assets as generated (collapsed in GitHub PRs, excluded from stats)
+app/assets/ahoy_analytics/build/assets/** linguist-generated=true

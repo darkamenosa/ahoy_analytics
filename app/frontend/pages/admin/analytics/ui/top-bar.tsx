@@ -20,6 +20,7 @@ import type { AnalyticsQuery } from '../types'
 import FilterDialog from './filter-dialog'
 import DateRangePicker from './date-range-dialog'
 import { analyticsPath } from '../lib/base-path'
+import { getConsumer, type Subscription } from '@/lib/cable'
 
 // No PERIOD_OPTIONS: menu rendered manually into Plausible-like groups
 
@@ -115,7 +116,48 @@ export default function TopBar({ showCurrentVisitors }: TopBarProps) {
 }
 
 function CurrentVisitors() {
-  const { payload } = useTopStatsContext()
+  const { payload, update } = useTopStatsContext()
+
+  useEffect(() => {
+    let subscription: Subscription | null = null
+    let reconnectTimeout: ReturnType<typeof setTimeout> | null = null
+
+    const connect = () => {
+      try {
+        const consumer = getConsumer()
+        subscription = consumer.subscriptions.create({ channel: 'AhoyAnalytics::AnalyticsChannel' }, {
+          received: (data: { currentVisitors?: number }) => {
+            if (typeof data?.currentVisitors !== 'number') return
+            update((prev) => {
+              const nextStats = prev.topStats.map((stat) => {
+                if (stat.graphMetric !== 'currentVisitors') return stat
+                return { ...stat, value: data.currentVisitors }
+              })
+              return { ...prev, topStats: nextStats }
+            })
+          },
+          disconnected: () => {
+            reconnectTimeout = setTimeout(connect, 5000)
+          },
+          rejected: () => {
+            reconnectTimeout = setTimeout(connect, 5000)
+          }
+        }) as unknown as Subscription
+      } catch (e) {
+        reconnectTimeout = setTimeout(connect, 5000)
+      }
+    }
+
+    connect()
+
+    return () => {
+      if (reconnectTimeout) clearTimeout(reconnectTimeout)
+      try {
+        subscription && (subscription as any).unsubscribe?.()
+      } catch {}
+    }
+  }, [update])
+
   const current = useMemo(() => {
     const live = payload.topStats.find((stat) => stat.graphMetric === 'currentVisitors')
     if (live) return Math.round(live.value)

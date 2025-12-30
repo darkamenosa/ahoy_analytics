@@ -35,6 +35,21 @@ module AhoyAnalytics
         rake "railties:install:migrations FROM=ahoy_analytics"
       end
 
+      def configure_live_updates
+        recurring_path = "config/recurring.yml"
+        unless File.exist?(recurring_path)
+          say_status(:info, "config/recurring.yml not found. Configure AhoyAnalytics::UpdateJob schedule manually if you want live updates.", :yellow)
+          return
+        end
+
+        added = insert_recurring_jobs(recurring_path)
+        if added
+          say_status(:insert, recurring_path, :green)
+        else
+          say_status(:identical, recurring_path, :blue)
+        end
+      end
+
       private
 
         def add_route(route_line, guard_text)
@@ -49,6 +64,47 @@ module AhoyAnalytics
           value = path.to_s.strip
           value = "/#{value}" unless value.start_with?("/")
           value.gsub(%r{/+$}, "")
+        end
+
+        def insert_recurring_jobs(path)
+          require "yaml"
+
+          contents = File.read(path)
+          config = YAML.safe_load(contents, permitted_classes: [Symbol]) || {}
+
+          added = false
+          %w[development production].each do |env|
+            config[env] ||= {}
+            unless config[env].key?("ahoy_analytics_live_updates")
+              # Create a new hash instance for each env to avoid YAML anchors/aliases
+              config[env]["ahoy_analytics_live_updates"] = {
+                "class" => "AhoyAnalytics::UpdateJob",
+                "queue" => "default",
+                "schedule" => "every 30 seconds"
+              }
+              added = true
+            end
+          end
+
+          return false unless added
+
+          # Preserve comments at the top of the file
+          comment_lines = []
+          contents.each_line do |line|
+            break unless line.start_with?("#") || line.strip.empty?
+            comment_lines << line
+          end
+
+          new_contents = comment_lines.join
+          new_contents += "\n" if comment_lines.any? && !comment_lines.last.end_with?("\n\n")
+
+          yaml_output = YAML.dump(config).sub(/\A---\n/, "")
+          # Add blank line between top-level keys (environments)
+          yaml_output = yaml_output.gsub(/^(\S+:)/) { |match| "\n#{match}" }.sub(/\A\n/, "")
+          new_contents += yaml_output
+
+          File.write(path, new_contents)
+          true
         end
     end
   end

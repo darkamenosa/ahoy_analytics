@@ -18,7 +18,7 @@ Then run:
 
 ```bash
 bundle
-bin/rails generate ahoy_analytics:install --path=/admin/analytics
+bin/rails generate ahoy_analytics:install
 bin/rails db:migrate
 ```
 
@@ -56,7 +56,7 @@ Edit `config/initializers/ahoy_analytics.rb`:
 
 ```ruby
 AhoyAnalytics.configure do |config|
-  config.mount_path = "/admin/analytics"
+  config.mount_path = "/admin/analytics" # change this to mount elsewhere
   config.ahoy_path = "/ahoy"
   config.cable_path = "/cable"
 
@@ -84,6 +84,7 @@ Other useful settings:
 This engine does not enforce authentication or authorization.
 Protect the mounted routes in your host app and ensure only authorized users can access the analytics UI and JSON endpoints.
 If you enable Live updates, also protect Action Cable access to the `config.cable_stream` channel.
+Action Cable authentication/authorization is app-owned and must be implemented in the host app.
 
 ## Database
 PostgreSQL only. The engine relies on JSONB, `generate_series`, and timezone SQL functions.
@@ -96,6 +97,10 @@ AhoyAnalytics::UpdateJob.perform_later
 ```
 
 Run it on a schedule (for example every 15–30 seconds) using your job runner.
+
+If your app uses Solid Queue recurring jobs (`config/recurring.yml`), the
+installer will add a default schedule of every 30 seconds for you. Otherwise,
+configure the schedule manually.
 
 ## Assets
 This engine ships prebuilt assets under `app/assets/ahoy_analytics/build`, so

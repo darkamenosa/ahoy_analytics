@@ -12,7 +12,7 @@ import {
 } from 'chart.js'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Line } from 'react-chartjs-2'
-import { Download, ChevronDown } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
@@ -27,7 +27,7 @@ import {
 import { Skeleton } from '@/components/ui/skeleton'
 // Tooltip imports removed (sampling tooltip currently commented out)
 
-import { exportCsv, fetchMainGraph, fetchTopStats } from '../api'
+import { fetchMainGraph, fetchTopStats } from '../api'
 import { useLastLoadContext } from '../last-load-context'
 import { useQueryContext } from '../query-context'
 import { useSiteContext } from '../site-context'
@@ -192,20 +192,6 @@ export default function VisitorGraph({ initialGraph }: VisitorGraphProps) {
     [fetchGraph, metric]
   )
 
-  const onExport = async () => {
-    try {
-      const blob = await exportCsv(query)
-      const url = window.URL.createObjectURL(blob)
-      const anchor = document.createElement('a')
-      anchor.href = url
-      anchor.download = 'analytics-export.csv'
-      anchor.click()
-      window.URL.revokeObjectURL(url)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   const chartData = useMemo(() => createChartData(graph), [graph])
   const chartOptions = useMemo(
     () => createChartOptions({ ...graph, metric }, query.period, site.timezone, mouseYRef),
@@ -261,9 +247,6 @@ export default function VisitorGraph({ initialGraph }: VisitorGraphProps) {
                 {query.withImported ? 'Showing imported' : 'Show imported'}
               </Button>
             )}
-            <Button variant="outline" size="sm" onClick={onExport}>
-              <Download className="mr-2 size-4" /> Export CSV
-            </Button>
             <IntervalPicker interval={interval} onChange={changeInterval} />
           </div>
           <div className="h-96">

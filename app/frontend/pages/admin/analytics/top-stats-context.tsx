@@ -1,9 +1,9 @@
-import { createContext, useContext, useMemo, useState, type ReactNode } from 'react'
+import { createContext, useContext, useMemo, useState, type ReactNode, type Dispatch, type SetStateAction } from 'react'
 import type { TopStatsPayload } from './types'
 
 export type TopStatsContextValue = {
   payload: TopStatsPayload
-  update: (payload: TopStatsPayload) => void
+  update: Dispatch<SetStateAction<TopStatsPayload>>
 }
 
 const TopStatsContext = createContext<TopStatsContextValue | null>(null)
