@@ -2,9 +2,6 @@ module AhoyAnalytics
   class Engine < ::Rails::Engine
     isolate_namespace AhoyAnalytics
 
-    config.autoload_paths << root.join("lib")
-    config.eager_load_paths << root.join("lib")
-
     initializer "ahoy_analytics.helpers" do
       ActiveSupport.on_load(:action_view) do
         include AhoyAnalytics::ApplicationHelper
