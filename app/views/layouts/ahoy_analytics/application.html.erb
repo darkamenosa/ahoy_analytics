@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Analytics</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= inertia_ssr_head %>
+    <%= ahoy_analytics_head_tags("analytics-ui") %>
+  </head>
+  <body class="min-h-dvh bg-background text-foreground">
+    <%= ahoy_analytics_window_config_tag %>
+    <%= yield %>
+    <%= ahoy_analytics_body_tags("analytics-ui") %>
+  </body>
+</html>

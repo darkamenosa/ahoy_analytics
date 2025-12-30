@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! command -v foreman >/dev/null 2>&1; then
+  echo "foreman not found. Install it with: gem install foreman"
+  exit 1
+fi
+
+exec foreman start -f Procfile.dev "$@"

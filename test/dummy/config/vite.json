@@ -1,0 +1,21 @@
+{
+  "all": {
+    "sourceCodeDir": "../../app/frontend",
+    "entrypointsDir": "entrypoints",
+    "publicDir": "../../app/assets/ahoy_analytics",
+    "publicOutputDir": "build",
+    "watchAdditionalPaths": ["../../app/frontend"]
+  },
+  "development": {
+    "autoBuild": true,
+    "port": 3038
+  },
+  "test": {
+    "autoBuild": true,
+    "publicOutputDir": "build-test",
+    "port": 3039
+  },
+  "production": {
+    "ssrBuildEnabled": false
+  }
+}

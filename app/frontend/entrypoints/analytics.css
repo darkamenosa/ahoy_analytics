@@ -1,0 +1,77 @@
+@import "../styles/shared.css";
+
+/* Admin Panel - Theme Styles */
+/* Following shadcn/ui theming convention with CSS variables */
+/* Color scheme adapted from public.css dark theme for brand consistency */
+/* Note: Tailwind CSS is imported only once in application.css */
+
+/* Admin theme - applied globally when admin.css is loaded */
+:root {
+    /* Dark theme by default for admin */
+    color-scheme: dark;
+  
+    /* Base radius - matching public for consistency */
+    --radius: 0.625rem;
+  
+    /* Core colors - matching public.css dark theme palette */
+    --background: oklch(0.18 0.015 265);              /* Same as public dark background */
+    --foreground: oklch(0.92 0.02 265);               /* Same as public dark foreground */
+  
+    /* Card colors - elevated surface for better hierarchy */
+    --card: oklch(0.24 0.01 265);                     /* Elevated from background */
+    --card-foreground: oklch(0.92 0.02 265);          /* Consistent foreground */
+  
+    /* Popover/Dropdown - more elevated for better contrast */
+    --popover: oklch(0.30 0.015 265);                 /* More elevated than card */
+    --popover-foreground: oklch(0.95 0.02 265);       /* Brighter text for contrast */
+  
+    /* Primary - golden accent from public.css */
+    --primary: oklch(0.78 0.18 84);                   /* Golden primary from public */
+    --primary-foreground: oklch(0.22 0.02 265);       /* Dark text on golden */
+  
+    /* Secondary - subtle elevated surface */
+    --secondary: oklch(0.28 0.01 265);                /* Slightly elevated */
+    --secondary-foreground: oklch(0.90 0.015 265);    /* Bright foreground */
+  
+    /* Muted - for less prominent elements */
+    --muted: oklch(0.32 0.009 265);                   /* Subtle elevation */
+    --muted-foreground: oklch(0.65 0.018 265);        /* Dimmed text */
+  
+    /* Accent (UI hover/background) — keep neutral like shadcn default */
+    --accent: oklch(0.36 0.015 265);
+    --accent-foreground: oklch(0.95 0.02 265);
+
+    /* Data accent (analytics visuals only) */
+    --data-accent: oklch(0.75 0.13 210);              /* cyan-400 vibe */
+  
+    /* Destructive - error/danger state */
+    --destructive: oklch(0.56 0.25 26);               /* Red tone from public */
+    --destructive-foreground: oklch(0.95 0.02 265);   /* Bright text */
+  
+    /* Form elements and borders */
+    --border: oklch(0.38 0.015 265);                  /* More visible border */
+    --input: oklch(0.95 0.005 265);                   /* Very light for 30% opacity in dark mode */
+    --ring: oklch(0.78 0.15 90);                      /* Golden ring focus */
+  
+    /* Chart palette (analytics) — first tone uses data accent */
+    --chart-1: var(--data-accent);
+    --chart-2: oklch(0.72 0.12 230);
+    --chart-3: oklch(0.70 0.12 200);
+    --chart-4: oklch(0.76 0.10 220);
+    --chart-5: oklch(0.68 0.10 240);
+  
+    /* Sidebar - consistent with card styling */
+    --sidebar: oklch(0.24 0.01 265);                  /* Same as card */
+    --sidebar-foreground: oklch(0.90 0.02 265);       /* Slightly dimmed */
+    --sidebar-primary: var(--primary);                /* Golden primary */
+    --sidebar-primary-foreground: var(--primary-foreground);
+    --sidebar-accent: oklch(0.32 0.015 265);          /* Hover state */
+    --sidebar-accent-foreground: oklch(0.95 0.02 265); /* Bright on hover */
+    --sidebar-border: oklch(0.32 0.01 265);           /* Subtle border */
+    --sidebar-ring: var(--ring);                      /* Same ring color */
+  }
+  
+  /* Since admin.css is only loaded for admin pages, these variables
+     become the default for everything including portaled content like
+     dropdowns. The Button component has a "golden" variant that matches
+     the public.css 3D button style systematically. */

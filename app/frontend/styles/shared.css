@@ -1,0 +1,156 @@
+/* Global/Shared Styles - Application-wide CSS */
+/* This file contains only shared Tailwind configuration and global utilities */
+/* Theme-specific styles are in public.css (public pages) or admin.css (admin pages) */
+
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Shared Tailwind plugins used across the application */
+@plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/forms";
+
+/* Global utility for dark mode support across all layouts */
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *, [data-theme="dark-pro"], [data-theme="dark-pro"] *));
+
+/* Sonner Toast Customization */
+[data-sonner-toaster] {
+  font-family: inherit;
+}
+
+[data-sonner-toast] {
+  backdrop-filter: blur(8px);
+  background: color-mix(in oklch, var(--background) 95%, transparent 5%) !important;
+  border-radius: var(--radius-md);
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--border) 40%, transparent 60%),
+    0 4px 12px color-mix(in oklch, oklch(0 0 0) 20%, transparent 80%),
+    0 8px 24px color-mix(in oklch, oklch(0 0 0) 10%, transparent 90%);
+  transition: all 0.2s ease;
+}
+
+[data-sonner-toast]:hover {
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--border) 60%, transparent 40%),
+    0 8px 20px color-mix(in oklch, oklch(0 0 0) 25%, transparent 75%),
+    0 12px 32px color-mix(in oklch, oklch(0 0 0) 15%, transparent 85%);
+  transform: translateY(-2px);
+}
+
+/* Success toasts with golden theme */
+[data-sonner-toast][data-type="success"] {
+  background: color-mix(in oklch, var(--primary) 8%, var(--background) 92%) !important;
+  border: 1px solid color-mix(in oklch, var(--primary) 30%, transparent 70%) !important;
+  color: var(--primary) !important;
+}
+
+[data-sonner-toast][data-type="success"] [data-icon] {
+  color: var(--primary);
+}
+
+/* Error toasts */
+[data-sonner-toast][data-type="error"] {
+  background: color-mix(in oklch, var(--destructive) 8%, var(--background) 92%) !important;
+  border: 1px solid color-mix(in oklch, var(--destructive) 30%, transparent 70%) !important;
+  color: var(--destructive) !important;
+}
+
+[data-sonner-toast][data-type="error"] [data-icon] {
+  color: var(--destructive);
+}
+
+/* Warning toasts */
+[data-sonner-toast][data-type="warning"] {
+  background: color-mix(in oklch, oklch(0.75 0.15 75) 8%, var(--background) 92%) !important;
+  border: 1px solid color-mix(in oklch, oklch(0.75 0.15 75) 30%, transparent 70%) !important;
+  color: oklch(0.75 0.15 75) !important;
+}
+
+/* Info toasts */
+[data-sonner-toast][data-type="info"] {
+  background: color-mix(in oklch, oklch(0.65 0.15 240) 8%, var(--background) 92%) !important;
+  border: 1px solid color-mix(in oklch, oklch(0.65 0.15 240) 30%, transparent 70%) !important;
+  color: oklch(0.65 0.15 240) !important;
+}
+
+/* Action buttons */
+[data-sonner-toast] [data-button] {
+  background: var(--primary) !important;
+  color: var(--primary-foreground) !important;
+  border-radius: calc(var(--radius-md) - 2px);
+  padding: 0.375rem 0.75rem;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+[data-sonner-toast] [data-button]:hover {
+  background: color-mix(in oklch, var(--primary) 85%, oklch(0 0 0) 15%) !important;
+  transform: translateY(-1px);
+}
+
+[data-sonner-toast] [data-cancel] {
+  background: color-mix(in oklch, var(--muted) 50%, transparent 50%) !important;
+  color: var(--muted-foreground) !important;
+}
+
+/* Close button */
+[data-sonner-toast] [data-close-button] {
+  background: color-mix(in oklch, var(--foreground) 10%, transparent 90%) !important;
+  border: 1px solid color-mix(in oklch, var(--border) 40%, transparent 60%) !important;
+  transition: all 0.15s ease;
+}
+
+[data-sonner-toast] [data-close-button]:hover {
+  background: color-mix(in oklch, var(--foreground) 20%, transparent 80%) !important;
+  border-color: var(--border) !important;
+}
+
+/* Shared theme token mappings */
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* Global base resets - minimal and shared across all layouts */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  * { @apply border-border outline-ring/50; }
+  button:not([disabled]), [role="button"]:not([disabled]) { cursor: pointer; }
+}

@@ -1,0 +1,16 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: ahoy_analytics_development
+
+test:
+  <<: *default
+  database: ahoy_analytics_test
+
+production:
+  <<: *default
+  database: ahoy_analytics_production
