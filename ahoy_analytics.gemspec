@@ -3,11 +3,11 @@ require_relative "lib/ahoy_analytics/version"
 Gem::Specification.new do |spec|
   spec.name        = "ahoy_analytics"
   spec.version     = AhoyAnalytics::VERSION
-  spec.authors     = [ "Tuyen" ]
+  spec.authors     = [ "Tom Ho" ]
   spec.email       = [ "hxtxmu@gmail.com" ]
-  spec.homepage    = "https://github.com/your-org/ahoy_analytics"
-  spec.summary     = "Mountable analytics dashboard for Rails using Ahoy + Inertia"
-  spec.description = "AhoyAnalytics provides a mountable Rails engine with an Inertia-based analytics UI and tracking script."
+  spec.homepage    = "https://github.com/darkamenosa/ahoy_analytics"
+  spec.summary     = "Live analytics tracking for Rails apps. No third-party services, just plug and run."
+  spec.description = "Live analytics tracking for Ruby on Rails apps. No need for third-party services, just plug and run."
   spec.license     = "MIT"
 
   spec.metadata["homepage_uri"] = spec.homepage
