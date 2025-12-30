@@ -1,6 +1,7 @@
 require "ahoy_analytics/version"
 require "ahoy"
 require "inertia_rails"
+require "countries"
 require "ahoy_analytics/device_bucket"
 require "ahoy_analytics/asset_manifest"
 require "ahoy_analytics/maxmind_geo"
