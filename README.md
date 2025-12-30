@@ -1,11 +1,24 @@
 # AhoyAnalytics
+
+> **Early Stage Project**
+>
+> This project is in active development with many assumptions baked in. Expect breaking changes. Best suited for small greenfield projects.
+>
+> **Current assumptions:**
+> - PostgreSQL (required - uses JSONB, `generate_series`, timezone functions)
+> - Solid Queue (for recurring jobs / live updates)
+> - Action Cable (for real-time live view)
+>
+> More flexibility coming soon.
+
 Mountable analytics dashboard for Rails using Ahoy + Inertia (no SSR). Ships a
 ready-to-run UI, live view, and a tracking script with prebuilt assets.
 
 ## Requirements
 - Rails 8.1+
-- A database supported by Ahoy Matey
-- Action Cable mounted (for the live view)
+- PostgreSQL
+- Solid Queue (for live updates via recurring jobs)
+- Action Cable (for the live view)
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -87,20 +100,18 @@ If you enable Live updates, also protect Action Cable access to the `config.cabl
 Action Cable authentication/authorization is app-owned and must be implemented in the host app.
 
 ## Database
-PostgreSQL only. The engine relies on JSONB, `generate_series`, and timezone SQL functions.
+PostgreSQL only. The engine relies on JSONB, `generate_series`, and timezone SQL functions. Other databases are not supported.
 
 ## Live updates
-The Live view uses Action Cable. Schedule this job to broadcast fresh data:
+The Live view uses Action Cable. The installer configures Solid Queue to run `AhoyAnalytics::UpdateJob` every 30 seconds via `config/recurring.yml`.
+
+If you're not using Solid Queue, schedule this job manually with your job runner:
 
 ```ruby
 AhoyAnalytics::UpdateJob.perform_later
 ```
 
-Run it on a schedule (for example every 15–30 seconds) using your job runner.
-
-If your app uses Solid Queue recurring jobs (`config/recurring.yml`), the
-installer will add a default schedule of every 30 seconds for you. Otherwise,
-configure the schedule manually.
+Run it every 15–30 seconds for real-time updates.
 
 ## Assets
 This engine ships prebuilt assets under `app/assets/ahoy_analytics/build`, so
