@@ -16,6 +16,9 @@
 Mountable analytics dashboard for Rails using Ahoy + Inertia (no SSR). Ships a
 ready-to-run UI, live view, and a tracking script with prebuilt assets.
 
+## Video demo
+[Watch the demo on YouTube](https://www.youtube.com/watch?v=KUuaJm3riaQ)
+
 ## Requirements
 - Rails 8.1+
 - PostgreSQL

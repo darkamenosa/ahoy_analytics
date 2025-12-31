@@ -70,7 +70,7 @@ module AhoyAnalytics
           require "yaml"
 
           contents = File.read(path)
-          config = YAML.safe_load(contents, permitted_classes: [Symbol]) || {}
+          config = YAML.safe_load(contents, permitted_classes: [ Symbol ]) || {}
 
           added = false
           %w[development production].each do |env|

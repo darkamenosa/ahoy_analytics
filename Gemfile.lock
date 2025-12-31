@@ -1,14 +1,14 @@
 PATH
   remote: .
   specs:
-    ahoy_analytics (0.1.0)
-      ahoy_matey
+    ahoy_analytics (0.1.5)
+      ahoy_matey (~> 5.4)
       countries (~> 8.0)
-      csv
-      device_detector
-      inertia_rails
-      maxminddb
-      rails (>= 8.1)
+      csv (~> 3.3)
+      device_detector (~> 1.1)
+      inertia_rails (~> 3.15)
+      maxminddb (~> 0.1)
+      rails (~> 8.1)
 
 GEM
   remote: https://rubygems.org/
@@ -320,7 +320,7 @@ DEPENDENCIES
   puma
   rubocop-rails-omakase
   sqlite3
-  vite_rails
+  vite_rails (~> 3.0)
 
 BUNDLED WITH
    2.7.2
